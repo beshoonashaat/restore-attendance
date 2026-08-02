@@ -39,6 +39,8 @@ SEED_LEADER_PASSWORD="restoreleader123"
 3. Deploy from GitHub or with `vercel --prod`.
 4. Run `npx prisma db push` once against production, then `npm run db:seed` if you want the initial leader and 25 cards.
 
+Prisma is intentionally pinned to v6.x because Prisma 7 requires the new `prisma.config.ts` datasource flow. This project uses the stable v6 schema format with `DATABASE_URL` in `schema.prisma`, which works cleanly on Vercel.
+
 ## Default seed
 - Leader username: `leader`
 - Leader password: value of `SEED_LEADER_PASSWORD`, default `restoreleader123`
