@@ -41,6 +41,8 @@ SEED_LEADER_PASSWORD="restoreleader123"
 
 Prisma is intentionally pinned to v6.x because Prisma 7 requires the new `prisma.config.ts` datasource flow. This project uses the stable v6 schema format with `DATABASE_URL` in `schema.prisma`, which works cleanly on Vercel.
 
+TailwindCSS is pinned to v3.4.x because the project uses the standard v3 PostCSS config (`tailwindcss` + `autoprefixer`). Do not change it to `latest` unless you also migrate PostCSS to `@tailwindcss/postcss`.
+
 ## Default seed
 - Leader username: `leader`
 - Leader password: value of `SEED_LEADER_PASSWORD`, default `restoreleader123`

@@ -32,7 +32,7 @@
     "react-hook-form": "latest",
     "recharts": "latest",
     "tailwind-merge": "latest",
-    "tailwindcss-animate": "latest",
+    "tailwindcss-animate": "1.0.7",
     "uuid": "latest",
     "zod": "latest"
   },
@@ -41,12 +41,12 @@
     "@types/qrcode": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "autoprefixer": "latest",
+    "autoprefixer": "10.4.20",
     "eslint": "latest",
     "eslint-config-next": "^15.5.0",
-    "postcss": "latest",
+    "postcss": "8.4.49",
     "prisma": "6.19.0",
-    "tailwindcss": "latest",
+    "tailwindcss": "3.4.17",
     "tsx": "latest",
     "typescript": "latest"
   }
