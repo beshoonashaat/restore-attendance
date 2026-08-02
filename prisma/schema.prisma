@@ -1,8 +1,85 @@
-generator client { provider = "prisma-client-js" }
-datasource db { provider = "postgresql" url = env("DATABASE_URL") }
-enum Role { USER LEADER ADMIN }
-enum LogAction { CLAIMED CHECKED UNCHECKED LEADER_LOGIN LEADER_LOGOUT CARD_RESET ATTENDANCE_RESET CARD_DELETED USER_DELETED LEADER_CREATED LEADER_DELETED LEADER_PASSWORD_RESET LEADER_DISABLED LEADER_ENABLED }
-model User { id String @id @default(cuid()) fullName String role Role @default(USER) createdAt DateTime @default(now()) card Card? @@index([fullName]) }
-model Card { id String @id @default(cuid()) uuid String @unique ownerId String? @unique owner User? @relation(fields:[ownerId],references:[id],onDelete:SetNull) attendance1 Boolean @default(false) attendance2 Boolean @default(false) attendance3 Boolean @default(false) attendance4 Boolean @default(false) createdAt DateTime @default(now()) logs ActivityLog[] @@index([uuid]) @@index([ownerId]) }
-model Leader { id String @id @default(cuid()) username String @unique passwordHash String enabled Boolean @default(true) createdAt DateTime @default(now()) logs ActivityLog[] @@index([username]) }
-model ActivityLog { id String @id @default(cuid()) leaderId String? leader Leader? @relation(fields:[leaderId],references:[id],onDelete:SetNull) cardId String? card Card? @relation(fields:[cardId],references:[id],onDelete:SetNull) userName String? attendanceNumber Int? action LogAction timestamp DateTime @default(now()) metadata Json? @@index([timestamp]) @@index([leaderId]) @@index([cardId]) }
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  LEADER
+  ADMIN
+}
+
+enum LogAction {
+  CLAIMED
+  CHECKED
+  UNCHECKED
+  LEADER_LOGIN
+  LEADER_LOGOUT
+  CARD_RESET
+  ATTENDANCE_RESET
+  CARD_DELETED
+  USER_DELETED
+  LEADER_CREATED
+  LEADER_DELETED
+  LEADER_PASSWORD_RESET
+  LEADER_DISABLED
+  LEADER_ENABLED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  fullName  String
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  card      Card?
+
+  @@index([fullName])
+}
+
+model Card {
+  id          String        @id @default(cuid())
+  uuid        String        @unique
+  ownerId     String?       @unique
+  owner       User?         @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+  attendance1 Boolean       @default(false)
+  attendance2 Boolean       @default(false)
+  attendance3 Boolean       @default(false)
+  attendance4 Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  logs        ActivityLog[]
+
+  @@index([uuid])
+  @@index([ownerId])
+}
+
+model Leader {
+  id           String        @id @default(cuid())
+  username     String        @unique
+  passwordHash String
+  enabled      Boolean       @default(true)
+  createdAt    DateTime      @default(now())
+  logs         ActivityLog[]
+
+  @@index([username])
+}
+
+model ActivityLog {
+  id               String    @id @default(cuid())
+  leaderId         String?
+  leader           Leader?   @relation(fields: [leaderId], references: [id], onDelete: SetNull)
+  cardId           String?
+  card             Card?     @relation(fields: [cardId], references: [id], onDelete: SetNull)
+  userName         String?
+  attendanceNumber Int?
+  action           LogAction
+  timestamp        DateTime  @default(now())
+  metadata         Json?
+
+  @@index([timestamp])
+  @@index([leaderId])
+  @@index([cardId])
+}
