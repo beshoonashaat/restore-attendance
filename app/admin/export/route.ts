@@ -1,0 +1,2 @@
+import { requireAdmin } from '@/lib/auth';import { prisma } from '@/lib/prisma';import { buildCardsPdf } from '@/lib/pdf';
+export async function GET(){await requireAdmin();const cards=await prisma.card.findMany({include:{owner:true},orderBy:{createdAt:'asc'}});const pdf=await buildCardsPdf(cards);return new Response(pdf,{headers:{'Content-Type':'application/pdf','Content-Disposition':'attachment; filename="restore-attendance-cards.pdf"'}})}
